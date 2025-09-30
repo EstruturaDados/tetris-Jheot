@@ -60,7 +60,7 @@ Peca jogarPeca(){
 
 void VisualizarFila() {
     if (contador == 0) {
-       printf("\n--- FILA DE PECAS (0/%d) ---\n", MAX_PECA);
+       printf("\n--- FILA DE PECAS (0/%d) ---\n", MAX);
         printf("A fila esta vazia.\n");
         printf("---------------------------\n");
         return; 
