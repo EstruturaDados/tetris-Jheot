@@ -67,10 +67,79 @@ void VisualizarFila() {
     }
 
     printf("\n--- FILA DE PECAS (%d/%d) ---\n", contador, MAX);
-}
-int main() {
 
+    // Itera a partir da 'frente' até o número de elementos no contador
+    for (int i = 0; i < contador; i++) {
+        int indice = (frente + i) % MAX;
+        printf("[%d] | Tipo: %s | ID: %d | %s\n",
+        fila[indice].tipo,
+        fila[indice].id,
+        i = 0 ? "<- PROXIMO A JOGAR" : "");
+    }
+
+    printf("----\n");
+}
+
+void inicializarFila() {
+    for (int i = 0; i < MAX; i++) {
+        Peca nova = gerarPeca();
+        fila[i] = nova;
+    }
+    frente = 0;
+    tras = 0; // Depois de inicializar 5, o 'tras' aponta para 0 (circular)
+    contador = MAX;
+    printf("Fila iniciazada com 4 peças aleatórias.\n");
+    visualizarFila();
+}
+// -- Função principal --
+int main() {
+    int opcao;
     
+    // Inicializa o gerador de números alatoórios
+    srand((unsigned int)time(NULL));
+
+    // Inicializa a arfila com 5 peças
+    inicializarFila();
+
+    do {
+        printf("\n===== MENU DE CONTROLE DE PECAS =====\n");
+        printf("1. Jogar Proxima Peca (Dequeue)\n");
+        printf("2. Inserir Nova Peca (Enqueue automatico)\n");
+        printf("3. Visualizar Fila Atual\n");
+        printf("0. Sair\n");
+        printf("Escolha uma opcao: ");
+
+        // Garante que a entrada seja limpa se houver erro
+        if (scanf("%d", &opcao) !=1) {
+            while (getchar() != '\n'); // Limpa o buffer de entrada
+            opcao = -1; // Define uma opção inválida
+        }
+
+        switch (opcao) {
+            case 1:
+                // 1. jogar (Remove a peça da frente)
+                JogarPeca();
+                VisualizarFila();
+                break;
+            case 2: {
+                //2. Inserir (Gera e insere uma nova peça no final)
+                Peca nova = gerarPeca();
+                inserirPeca(nova);
+                visualizarFila();
+                break;
+            }
+            case 3:
+                // 3. visualizar
+                visualizarFila();
+                break;
+            case 0:
+                printf("\nEncerrando o sistema de controle de pecas.\n");
+                break;
+            default:
+                printf("\nOpcao invalida. Tente novamente.\n");
+                break;
+        }
+    } while (opcao != 0);
 
     return 0;
 }
